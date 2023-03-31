@@ -2,9 +2,24 @@
   "expo": {
     "scheme": "acme",
     "web": {
-      "bundler": "metro"
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
     },
-    "name": "taskin-todo",
-    "slug": "taskin-todo"
+    "name": "sky-check",
+    "slug": "sky-check",
+    "icon": "./assets/icon.png",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#131212"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#131212"
+      }
+    }
   }
 }
