@@ -1,13 +1,13 @@
 import { Feather } from '@expo/vector-icons';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Stack } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { Animated, SafeAreaView, StatusBar, Text, TextInput, View } from "react-native";
+import { Animated, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, View } from "react-native";
 import cloud from '../../assets/cloud.png';
 import rain from '../../assets/rain.png';
 import snow from '../../assets/snow.png';
 import sun from '../../assets/sun.png';
-import { styles } from './styles';
 
 export default function Home () {
   // Put the app in full screen mode
@@ -127,6 +127,9 @@ function getWeatherImageName(weather) {
     style={styles.gradient}
     >
       {/* SEARCH BAR */}
+      <Stack.Screen options={{
+        headerShown: false,
+      }} />
         <SafeAreaView style={styles.container} keyboardShouldPersistTaps="always">
           <Animated.View style={{ opacity: fadeAnimSearchBar }}>
             <View style={styles.search}>
@@ -171,3 +174,83 @@ function getWeatherImageName(weather) {
     </LinearGradient>
   )
 }
+
+
+export const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  container: {
+    paddingHorizontal: 30,
+    paddingTop: 60,
+    paddingBottom: 60,
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 100,
+  },
+  search: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: 'row',
+    borderBottomColor: '#585858' ,
+    borderBottomWidth: 1,
+    paddingVertical: 5,
+    maxWidth: '95%',
+    marginHorizontal: 'auto',
+    position: 'relative',
+    width: '100%',
+  },
+  input: {
+    textAlign: 'center',
+    color: '#585858',
+    fontSize: 33,
+    width: '100%',
+    fontFamily: 'PR',
+  },
+  searchIcon: {
+    color: '#585858',
+    position: 'absolute',
+    left: 10,
+    top: 16,
+  },
+  weatherContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  weatherInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 20,
+    alignItems: 'center',
+  },
+  weatherImage: {
+    width: 110,
+  },
+  temperature: {
+    color: 'white',
+    fontSize: 92,
+    fontFamily: 'PM',
+  },
+  location: {
+    fontSize: 18,
+    color: '#585858',
+    fontFamily: 'PR',
+  },
+  description: {
+    marginTop: 20,
+    fontSize: 18,
+    color: '#585858',
+    fontFamily: 'PR',
+  },
+  date: {
+    fontSize: 22,
+    color: '#585858',
+    fontFamily: 'PM',
+  }
+})
