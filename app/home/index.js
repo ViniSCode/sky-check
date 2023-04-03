@@ -16,7 +16,7 @@ export default function Home () {
   const [weather, setWeather] = useState(null);
   const [location, setLocation] = useState("");
   const [weatherImage, setWeatherImage] = useState(null);
-
+  
   const date = new Date(); // replace this with the date you want to format
   const formattedDate = new Intl.DateTimeFormat('en-US', {
     month: 'long',
@@ -24,6 +24,9 @@ export default function Home () {
     year: 'numeric'
   }).format(date);
   
+
+  //REF
+  const inputSearch = useRef(null);
   // TRANSITIONS
   const fadeAnimWeather = useRef(new Animated.Value(0)).current;
   const fadeAnimSearchBar = useRef(new Animated.Value(0)).current;
@@ -77,11 +80,12 @@ export default function Home () {
   useEffect(() => {
     let timer = setTimeout(async () => {
       if (location) {
+        inputSearch.current.blur();
         await fetchWeather();
       } else {
         await fetchWeather("New York");
       }
-    }, 1000)
+    }, 2000)
 
     return () => clearTimeout(timer);
   }, [location])
@@ -135,11 +139,13 @@ function getWeatherImageName(weather) {
             <View style={styles.search}>
               <Feather name="search" size={25} color="black" style={styles.searchIcon}/>
               <TextInput 
+                ref={inputSearch}
                 placeholderTextColor="#585858"
                 onChangeText={(value) => setLocation(value)}
                 placeholder={weather?.name ? weather?.name: 'New York'}
                 value={location}
                 style={styles.input}
+                keyboardAppearance="dark"
               />
             </View>
           </Animated.View>
@@ -184,8 +190,8 @@ export const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 30,
-    paddingTop: 60,
-    paddingBottom: 60,
+    paddingTop: 40,
+    paddingBottom: 40,
     display: 'flex',
     height: '100%',
     justifyContent: 'space-between',
@@ -208,7 +214,8 @@ export const styles = StyleSheet.create({
   input: {
     textAlign: 'center',
     color: '#585858',
-    fontSize: 33,
+    fontSize: 22,
+    height: 28,
     width: '100%',
     fontFamily: 'PR',
   },
@@ -216,7 +223,7 @@ export const styles = StyleSheet.create({
     color: '#585858',
     position: 'absolute',
     left: 10,
-    top: 16,
+    top: 0,
   },
   weatherContainer: {
     display: 'flex',
@@ -231,6 +238,7 @@ export const styles = StyleSheet.create({
   },
   weatherImage: {
     width: 110,
+    marginBottom: 20,
   },
   temperature: {
     color: 'white',
@@ -251,6 +259,6 @@ export const styles = StyleSheet.create({
   date: {
     fontSize: 22,
     color: '#585858',
-    fontFamily: 'PM',
+    fontFamily: 'PR',
   }
 })
